@@ -1,12 +1,14 @@
 #Nim language support for Vim
 
+This plugin is a fork of github.com/zah/nim.vim.
+Everything indentation and syntax related is copied, all external dependencies
+are removed.
+I mostly made this repository for easy installation with vim-plug.
+
 This provides [Nim](http://nim-lang.org) language support for Vim:
 
 * Syntax highlighting
 * Auto-indent
-* Build/jump to errors within Vim
-* Project navigation and Jump to Definition (cgats or compiler-assisted
-  idetools).
 
 The source of this script comes mainly from
 http://www.vim.org/scripts/script.php?script_id=2632, which comes from a
@@ -41,7 +43,7 @@ You now have pathogen installed and can put `nimrod.vim` into `~/.vim/bundle`
 like this:
 
     cd ~/.vim/bundle
-    git clone git://github.com/zah/nim.vim.git
+    git clone git://github.com/alexander-matz/nim.vim.git
     
 You may also want to install synastic by calling 
 
@@ -77,30 +79,9 @@ Modify your ~/.vimrc to get vundle running, lightly adapted from [Vundle's readm
     
 ###Step 2: Install nim.vim
 
-On the line after `Bundle 'gmarik/vundle'`, add `Bundle 'zah/nim.vim'`. You may also want
+On the line after `Bundle 'gmarik/vundle'`, add `Bundle 'alexander-matz/nim.vim'`. You may also want
 to add `Bundle 'scrooloose/syntastic'`. Save `~/.vimrc` and restart vim. Execute `:BundleInstall`
 and wait for nim.vim to be installed.
-
-##Final Step
-Next you *need to add this* to your `~/.vimrc`:
-
-    fun! JumpToDef()
-      if exists("*GotoDefinition_" . &filetype)
-        call GotoDefinition_{&filetype}()
-      else
-        exe "norm! \<C-]>"
-      endif
-    endf
-    
-    " Jump to tag
-    nn <M-g> :call JumpToDef()<cr>
-    ino <M-g> <esc>:call JumpToDef()<cr>i
-
-The `JumpToDef` function hooks the `nim.vim` plugin to invoke the nim
-compiler with the appropriate idetools command. Pressing meta+g will then jump
-to the definition of the word your cursor is on. This uses the nim compiler
-instead of ctags, so it works on any nimrod file which is compilable without
-requiring you to maintain a database file.
   
 #Other recomended Vim plugins
 
